@@ -1,0 +1,32 @@
+stages:
+  - publish
+
+.gradle:
+  image: gradle:7.4.2
+  variables:
+    ORG_GRADLE_PROJECT_signingKey: $SIGNING_KEY_ARMORED
+    ORG_GRADLE_PROJECT_signingPassword: $SIGNING_KEY_PASSWORD
+  before_script:
+    - export BUILD_VERSION=$CI_COMMIT_TAG
+
+publish:
+  stage: publish
+  extends: .gradle
+  variables:
+    ORG_GRADLE_PROJECT_CentralUsername: $MAVEN_USER
+    ORG_GRADLE_PROJECT_CentralPassword: $MAVEN_PASSWORD
+  script:
+    - gradle --stacktrace publishLibPublicationToCentralRepository
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+$/
+
+publish-snapshot:
+  stage: publish
+  extends: .gradle
+  variables:
+    ORG_GRADLE_PROJECT_SnapshotUsername: $MAVEN_USER
+    ORG_GRADLE_PROJECT_SnapshotPassword: $MAVEN_PASSWORD
+  script:
+    - gradle --stacktrace publishLibPublicationToSnapshotRepository
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+-SNAPSHOT$/
