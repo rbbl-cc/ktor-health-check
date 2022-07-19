@@ -35,11 +35,21 @@ tasks.getByName<Wrapper>("wrapper") {
     gradleVersion = "7.4.2"
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+}
+
 publishing {
     publications {
         create<MavenPublication>("lib") {
             artifactId = "ktor-health-check"
-            from(components["java"])
+            from(components["kotlin"])
             pom {
                 name.set("Ktor Health Check")
                 description.set("A small Library to add Kubernetes-Style Health- and Readiness-Checks to Ktor Projects.")
