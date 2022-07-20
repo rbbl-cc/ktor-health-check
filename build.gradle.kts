@@ -49,7 +49,7 @@ publishing {
     publications {
         create<MavenPublication>("lib") {
             artifactId = "ktor-health-check"
-            from(components["kotlin"])
+            from(components["java"])
             pom {
                 name.set("Ktor Health Check")
                 description.set("A small Library to add Kubernetes-Style Health- and Readiness-Checks to Ktor Projects.")
