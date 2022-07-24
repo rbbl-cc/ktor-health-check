@@ -1,12 +1,26 @@
 # ktor-health-check
-[![license](https://img.shields.io/github/license/zensum/ktor-health-check.svg)]() [![](https://jitpack.io/v/zensum/ktor-health-check.svg)](https://jitpack.io/#zensum/ktor-health-check)
 
-Simple, opinionated ktor health and readiness checks made for Kubernetes.
+Simple, opinionated Ktor health and readiness checks made for Kubernetes.
 
-**Installation**: https://jitpack.io/#zensum/ktor-health-check
+**Supported Ktor Version**: 2.x \
+Check out the [original Repo](https://github.com/zensum/ktor-health-check) for Builds for older Ktor Versions 
+
+## Installation
 
 ```kotlin
-import ktor_health_check.Health
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("cc.rbbl:ktor-health-check:2.0.0")
+}
+```
+
+## Usage
+
+```kotlin
+import cc.rbbl.ktor_health_check.Health
 
 fun main(args: Array<String>) {
     embeddedServer(Netty, 80) {
@@ -23,6 +37,8 @@ complicated application we might want to our readycheck to start
 failing if the database goes down.
 
 ```kotlin
+import cc.rbbl.ktor_health_check.Health
+
 fun main(args: Array<String>) {
     embeddedServer(Netty, 80) {
         install(Health) {
@@ -41,7 +57,7 @@ Content-Length: 17
 {"database":true}
 ```
 
-Lets add another check
+Let's add another check
 
 ```kotlin
 install(Health) {
@@ -71,5 +87,5 @@ For some use-cases you may want to expose checks on URLs other than
 ```kotlin
 customCheck("/smoketest", "database") { database.test() }
 ```
-And the smoketest should now be avaliable on `/smoketest`
+And the smoketest should now be available on `/smoketest`
  
