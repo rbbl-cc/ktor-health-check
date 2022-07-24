@@ -29,4 +29,4 @@ publish-snapshot:
   script:
     - gradle --stacktrace publishLibPublicationToSnapshotRepository
   rules:
-    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+-SNAPSHOT$/
+    - if: $CI_COMMIT_TAG =~ /^\d+\.\d+\.\d+-RC\d+-SNAPSHOT$/
