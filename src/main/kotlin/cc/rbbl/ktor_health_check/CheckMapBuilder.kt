@@ -1,4 +1,4 @@
-package ktor_health_check
+package cc.rbbl.ktor_health_check
 
 // A checkmap is simply a map of names to Check functions.
 private typealias CheckMap = Map<String, Check>

@@ -1,4 +1,4 @@
-package ktor_health_check
+package cc.rbbl.ktor_health_check
 
 import io.ktor.http.*
 import io.ktor.server.application.*
